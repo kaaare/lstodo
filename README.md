@@ -2,7 +2,7 @@
 
 `lstodo [-flr] [file1 file2 ...]`
 
-List `# TODO: ` comments from files or directories, optionally with line numbers and file names.
+List `# TODO:` comments from files or directories, optionally with line numbers and file names.
 
 ### Example
 ```
