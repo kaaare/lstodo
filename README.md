@@ -4,6 +4,8 @@
 
 List `# TODO:` comments from files or directories, optionally with line numbers and file names.
 
+Basically a specialized `grep` that also works on Windows.
+
 ### Example
 ```
 br@kyrandia~$ lstodo mojoapp.pl
@@ -12,8 +14,6 @@ br@kyrandia~$ lstodo mojoapp.pl
 # TODO: Change database user's password.
 br@kyrandia~$ █
 ```
-
-Also works on windows (no grep).
 
 Supports only pound sign comment syntax (php/perl/sql/tcl/bash/python plus plus etc).
 
