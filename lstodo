@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+use File::Find;
+
+# Read and discard modifier arguments if they exist:
+if ($ARGV[0] =~ /^-(\w{1,3})$/g) {
+    $m = $1; # keep.
+    $printline = 1 if ($m =~ /l/);
+    $printfile = 1 if ($m =~ /f/);
+    $recursive = 1 if ($m =~ /r/);
+    shift @ARGV;
+}
+
+
+# Sub for printing TODOs from a single file:
+sub print_todos {
+    $file = $_[0];
+    open FH, $file;
+    while (<FH>) {
+        if (m/(# TODO:.*)$/) {
+            print "$file:" if ($printfile);
+            print "$. "    if ($printline);
+            print $1, "\n";
+        }
+    }
+    close FH;
+}
+
+
+if ($recursive) {
+
+    # Recursively list files:
+    find(
+        # Call this for every file found:
+        sub { print_todos $File::Find::name },
+        # Start looking for files in this directory:
+        '.'
+    );
+
+} elsif (scalar @ARGV > 0) {
+    # File names are passed as arguments.
+    # Iterate over each file name:
+    foreach (@ARGV) {
+        print_todos $_;
+    }
+}
+
+else {
+    # No file names are given as arguments.
+    # Iterate over all files in the current directory:
+    opendir DIR, '.';
+    foreach (readdir(DIR)) {
+        print_todos $_ if (-f);
+    }
+    closedir DIR;
+}
+
