@@ -31,7 +31,7 @@ if ($recursive) {
     # Recursively list files:
     find(
         # Call this for every file found:
-        sub { print_todos $File::Find::name },
+        sub { print_todos $_ },
         # Start looking for files in this directory:
         '.'
     );
